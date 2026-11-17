@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>تحدي حملة دفا 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b111e;
+      --card-bg: rgba(21, 30, 48, 0.92);
+      --border-warm: rgba(245, 158, 11, 0.25);
+      --primary: #f59e0b;
+      --primary-dark: #ea580c;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 85% 15%, rgba(234, 88, 12, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.14) 0%, transparent 45%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-warm);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(245, 158, 11, 0.08);
+      transition: all 0.4s ease;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.14);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 14px;
+      color: #fbbf24;
+    }
+
+    p {
+      font-size: 1.03rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .highlight {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    .input-group {
+      margin: 24px 0 18px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.7);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    input[type="text"]::placeholder {
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+    }
+
+    .error-msg {
+      color: #f87171;
+      font-size: 0.88rem;
+      margin-top: 8px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px 22px;
+      border: none;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.2s;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(234, 88, 12, 0.35);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 14px 30px rgba(234, 88, 12, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #062814;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-whatsapp:hover {
+      box-shadow: 0 12px 24px rgba(37, 211, 102, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.98rem;
+      padding: 13px 18px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .story-box {
+      background: rgba(15, 23, 42, 0.55);
+      border-right: 4px solid var(--primary);
+      padding: 16px 18px;
+      border-radius: 14px;
+      margin: 16px 0 22px;
+    }
+
+    .story-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .challenge-question {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .result-box {
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(245, 158, 11, 0.16) 0%, rgba(15, 23, 42, 0.7) 75%);
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: 22px;
+      padding: 26px 16px;
+      margin: 16px 0 20px;
+      position: relative;
+    }
+
+    .challenge-code {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .amount-display {
+      font-size: 3.4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #ea580c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+      margin: 4px 0;
+    }
+
+    .amount-display span {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .motivation-pill {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.14);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .payment-box {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 18px 0;
+      font-size: 0.96rem;
+    }
+
+    .payment-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .copy-mini {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-mini:hover {
+      background: rgba(245, 158, 11, 0.32);
+    }
+
+    .reset-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #94a3b8;
+      font-size: 0.88rem;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #10b981;
+      color: #042f2e;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 99;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .shake {
+      animation: shake 0.3s ease-in-out;
+    }
+
+    @media (max-width: 380px) {
+      .card { padding: 24px 18px; }
+      h1 { font-size: 1.5rem; }
+      .amount-display { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+
+      <!-- الشاشة 1: إدخال الاسم -->
+      <div id="screen-1" class="screen active">
+        <div class="badge">🔥 حملة دفا الشتوية</div>
+        <h1>أهلاً بيك في عائلة دفا 🤍</h1>
+        <p>خطوة بسيطة منك النهاردة.. ممكن تكون سبب في دفا قلب محتاج وستر أسرة كاملة في عز البرد.</p>
+
+        <div class="input-group">
+          <input type="text" id="volunteer-name" placeholder="اكتب اسمك هنا عشان نبدأ..." autocomplete="name" />
+          <div id="name-error" class="error-msg">من فضلك اكتب اسمك الأول عشان نكمل 😊</div>
+        </div>
+
+        <button class="btn btn-primary" onclick="goToStory()">
+          كمل ←
+        </button>
+      </div>
+
+      <!-- الشاشة 2: الرسالة المؤثرة والدعوة للتحدي -->
+      <div id="screen-2" class="screen">
+        <div class="badge">🤍 رسالة ليك يا بطل</div>
+        <h2>إزيك يا <span id="display-name-1"></span>، عامل إيه؟ يا رب تكون بخير دايماً.</h2>
+
+        <div class="story-box">
+          <p>
+            في الوقت اللي إحنا قاعدين فيه متدفيين في بيوتنا، في ناس وأطفال كتير في الشوارع وفي البيوت البسيطة بيعدّي عليهم الليل بصعوبة، وأقصى حلمهم غطا أو لبس تقيل يحميهم من برد الشتاء القارس.
+          </p>
+          <p>
+            عشان كده إحنا في <span class="highlight">«حملة دفا»</span> قررنا منقفش نتفرج، وهدفنا نوصل الدفا والستر لكل محتاج ونجهز أكبر عدد من البطاطين قبل ما البرد يزيد أكتر.
+          </p>
+        </div>
+
+        <p class="challenge-question">
+          إيه رأيك يا <span id="display-name-2" class="highlight"></span> تكون سبب في دفا حد النهاردة وتدخل معانا في تحدي خير بسيط؟
+        </p>
+
+        <button class="btn btn-primary" onclick="startChallenge()">
+          أنا جاهز.. ادخل التحدي 🔥
+        </button>
+      </div>
+
+      <!-- الشاشة 3: الرقم العشوائي والتفاصيل -->
+      <div id="screen-3" class="screen">
+        <div class="badge">🎯 تحديك جاهز</div>
+        <h2>عاش يا <span id="display-name-3"></span>! تحديك النهاردة هو:</h2>
+
+        <div class="result-box">
+          <div class="challenge-code" id="challenge-code">كود التحدي: DAFA-100</div>
+          <div class="amount-display">
+            <span id="amount-number">0</span> <span>جنيه</span>
+          </div>
+          <div class="motivation-pill" id="motivation-text">
+            جاري تجهيز رسالتك...
+          </div>
+        </div>
+
+        <p style="text-align: center; font-size: 0.98rem;">
+          محتاجين منك تسعى وتجمع المبلغ ده للمساعدة في حملة دفا. المبلغ بسيط، بس لما نجمعه مع بعض بيفرق في حياة ناس كتير.. تقدر تجمعه من صحابك، عيلتك، أو تشارك فيه بنفسك!
+        </p>
+
+        <!-- أزرار المشاركة السريعة -->
+        <div id="action-buttons" style="display: none;">
+          <a id="whatsapp-share-btn" href="#" target="_blank" class="btn btn-whatsapp">
+            ابعت لصحابك يتبرعوا 📲
+          </a>
+
+          <button class="btn btn-secondary" onclick="copyShareMessage()">
+            نسخ رسالة الدعوة والتبرع 📋
+          </button>
+
+          <!-- بيانات التحويل -->
+          <div class="payment-box">
+            <div style="font-weight: 700; color: #fbbf24;">💳 طرق تسليم مبلغ التحدي للحملة:</div>
+            <div class="payment-row">
+              <span>فودافون كاش: <strong id="vf-number" dir="ltr" style="font-size: 1.05rem; color: #fff;">01008038141</strong></span>
+              <button class="copy-mini" onclick="copyText('01008038141', 'تم نسخ رقم فودافون كاش بنجاح')">نسخ الرقم</button>
+            </div>
+          </div>
+
+          <button class="reset-link" onclick="resetChallenge()">
+            خلصت التحدي وعايز أدخل تحدي جديد ↻
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- إشعار النسخ -->
+  <div id="toast" class="toast">تم النسخ بنجاح!</div>
+
+  <script>
+    const VODAFONE_CASH_NUMBER = "01008038141";
+
+    // رسائل تشجيعية متنوعة تظهر تحت المبلغ
+    const motivationMessages = [
+      "🤍 خطوة بسيطة منك بس أثرها عند ربنا كبير.. قدها يا بطل!",
+      "🔥 الخير بيبدأ بخطوة، وإنت النهاردة اخترت تكون سبب في جبر خاطر!",
+      "✨ متستقلش بالمبلغ.. بركة السعي والنية الصافية بتعمل المعجزات!",
+      "💪 ربنا يجعله في ميزان حسناتك ويسخر لك اللي يعينك على الخير!",
+      "🌟 الدال على الخير كفاعله.. ابدأ دلوقتي وهتلاقي أبواب الخير بتتفتحلك!",
+      "❤️ أجمل إحساس في الدنيا إنك تكون سبب في ابتسامة ودفا حد محتاج!",
+      "🚀 تحدي بسيط في دقايق، بس ثوابه وأثره باقيين عند ربنا!"
+    ];
+
+    let volunteerName = "";
+    let finalAmount = 0;
+    let challengeCode = "";
+    let currentMotivation = "";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedData = localStorage.getItem("dafa_challenge_data");
+      if (savedData) {
+        const parsed = JSON.parse(savedData);
+        volunteerName = parsed.name;
+        finalAmount = parsed.amount;
+        challengeCode = parsed.code;
+        currentMotivation = parsed.motivation || getRandomMotivation();
+        showFinalResultDirectly();
+      }
+
+      document.getElementById("volunteer-name").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          goToStory();
+        }
+      });
+    });
+
+    function switchScreen(screenId) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(screenId).classList.add("active");
+    }
+
+    function goToStory() {
+      const input = document.getElementById("volunteer-name");
+      const errorMsg = document.getElementById("name-error");
+      const nameVal = input.value.trim();
+
+      if (!nameVal) {
+        errorMsg.style.display = "block";
+        input.classList.remove("shake");
+        void input.offsetWidth;
+        input.classList.add("shake");
+        input.focus();
+        return;
+      }
+
+      errorMsg.style.display = "none";
+      volunteerName = nameVal;
+
+      document.getElementById("display-name-1").textContent = volunteerName;
+      document.getElementById("display-name-2").textContent = volunteerName;
+      document.getElementById("display-name-3").textContent = volunteerName;
+
+      switchScreen("screen-2");
+    }
+
+    // توليد رقم عشوائي: أكبر من 20 ومن مضاعفات 5 (من 25 إلى 300)
+    function generateValidAmount() {
+      const multiplier = Math.floor(Math.random() * 56) + 5;
+      return multiplier * 5;
+    }
+
+    function getRandomMotivation() {
+      const index = Math.floor(Math.random() * motivationMessages.length);
+      return motivationMessages[index];
+    }
+
+    function startChallenge() {
+      switchScreen("screen-3");
+      document.getElementById("action-buttons").style.display = "none";
+
+      finalAmount = generateValidAmount();
+      challengeCode = "DAFA-" + (Math.floor(Math.random() * 900) + 100);
+      currentMotivation = getRandomMotivation();
+      document.getElementById("challenge-code").textContent = "كود التحدي: " + challengeCode;
+
+      const amountEl = document.getElementById("amount-number");
+      let ticks = 0;
+      const maxTicks = 24;
+
+      const rollInterval = setInterval(() => {
+        amountEl.textContent = generateValidAmount();
+        ticks++;
+        if (ticks >= maxTicks) {
+          clearInterval(rollInterval);
+          amountEl.textContent = finalAmount;
+          finalizeChallengeUI();
+        }
+      }, 45);
+    }
+
+    function finalizeChallengeUI() {
+      document.getElementById("motivation-text").textContent = currentMotivation;
+      document.getElementById("action-buttons").style.display = "block";
+
+      const shareText = getShareText();
+      const waUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
+      document.getElementById("whatsapp-share-btn").href = waUrl;
+
+      localStorage.setItem("dafa_challenge_data", JSON.stringify({
+        name: volunteerName,
+        amount: finalAmount,
+        code: challengeCode,
+        motivation: currentMotivation
+      }));
+    }
+
+    function showFinalResultDirectly() {
+      document.getElementById("display-name-3").textContent = volunteerName;
+      document.getElementById("challenge-code").textContent = "كود التحدي: " + challengeCode;
+      document.getElementById("amount-number").textContent = finalAmount;
+      switchScreen("screen-3");
+      finalizeChallengeUI();
+    }
+
+    // رسالة مؤثرة جداً تعرّف بالحملة وتشجع على التبرع والتطوع بدون ذكر اسم أو كلمة "دخلت تحدي"
+    function getShareText() {
+      return `تخيّل إن في نفس اللحظة اللي إحنا قاعدين فيها متدفيين في بيوتنا، في طفل صغير أو أب كبير في السن بيعدّي عليه الليل وهو بيرتعش من البرد.. وأقصى حلمه غطا يستره ويدفيه 🤍❄️\n\n` +
+             `من هنا بدأت *«حملة دفا»*؛ مش مجرد حملة تبرعات، دي رسالة إنسانية هدفها نكون سند لأهالينا ونوصل الدفا والستر لكل محتاج قبل ما قسوة الشتاء تزيد أكتر.\n\n` +
+             `دلوقتي محتاجين نكمّل سوا مبلغ *${finalAmount} جنيه* بس عشان نقدر نجهز ونوصل الدفا لناس مستنياه بجد..\n` +
+             `مساهمتك ولو بـ 10 أو 20 جنيه ممكن تبان بسيطة، بس عند ربنا وعند إنسان محتاجها بتساوي الدنيا كلها 🤲✨\n\n` +
+             `💳 للمشاركة والتبرع على فودافون كاش:\n` +
+             `📲 *${VODAFONE_CASH_NUMBER}*\n\n` +
+             `ولو حابب تكون جزء من العيلة دي وتنزل معانا على الأرض أو تساعد في نشر الخير، باب التطوع في *«حملة دفا»* مفتوح ليك.. الدال على الخير كفاعله، خليك إنت سبب الدفا النهاردة 🤍🔥`;
+    }
+
+    function copyShareMessage() {
+      copyText(getShareText(), "تم نسخ الرسالة! ابعتها لصحابك دلوقتي 🤍");
+    }
+
+    function copyText(text, successMsg) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg));
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          showToast(successMsg);
+        } catch (err) {}
+        document.body.removeChild(textArea);
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    function resetChallenge() {
+      localStorage.removeItem("dafa_challenge_data");
+      document.getElementById("volunteer-name").value = volunteerName;
+      switchScreen("screen-1");
+    }
+  </script>
+</body>
+</html>
